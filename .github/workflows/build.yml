@@ -1,4 +1,4 @@
-name: SonarCloud (Windows)
+name: SonarQube Cloud (Windows)
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: SonarCloud Scan
+    name: SonarQube Cloud Scan
     runs-on: windows-latest
 
     steps:
@@ -20,17 +20,16 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '17'
+          java-version: '17'  # Make sure to choose the version SonarQube requires
 
-      - name: Cache SonarCloud packages
+      - name: Cache SonarQube packages
         uses: actions/cache@v3
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
 
-      - name: Run SonarCloud Scanner
+      - name: Run SonarQube Scanner
         uses: SonarSource/sonarcloud-github-action@master
         with:
-          organization: your_org_name     # <-- Replace with your SonarCloud organization
+          organization: your_org_name      # <-- Replace with your SonarQube Cloud organization
           token: ${{ secrets.SONAR_TOKEN }}
-
